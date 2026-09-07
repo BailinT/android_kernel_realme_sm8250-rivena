@@ -113,6 +113,17 @@ static bool oplus_check_pdphy_ready(void) ;
 bool oplus_check_pd_state_ready(void);
 bool oplus_usbtemp_condition(void);
 extern bool oplus_is_use_external_boost(void);
+
+// BailinT: GT大师探索版混血树无这两个符号的提供方（原厂在 device 私有充电仓库），
+// weak 默认值与原厂行为一致：不启用外部 boost，PD 状态视为就绪
+bool __attribute__((weak)) oplus_is_use_external_boost(void)
+{
+	return false;
+}
+bool __attribute__((weak)) oplus_check_pd_state_ready(void)
+{
+	return true;
+}
 //extern void oplus_chg_cancel_update_work_sync(void);
 
 #define OPLUS_CHG_MONITOR_INTERVAL round_jiffies_relative(msecs_to_jiffies(5000))
