@@ -721,6 +721,15 @@ boost_write(struct cgroup_subsys_state *css, struct cftype *cft,
 	return 0;
 }
 
+/* BailinT: WINDOW_STATS_* 定义在 walt.h（CONFIG_SCHED_WALT gate 内），本 defconfig 未开 WALT；补与 walt.h 一致的兜底 */
+#ifndef WINDOW_STATS_INVALID_POLICY
+#define WINDOW_STATS_RECENT		0
+#define WINDOW_STATS_MAX		1
+#define WINDOW_STATS_MAX_RECENT_AVG	2
+#define WINDOW_STATS_AVG		3
+#define WINDOW_STATS_INVALID_POLICY	4
+#endif
+
 #ifdef OPLUS_FEATURE_POWER_CPUFREQ
 unsigned int schedtune_window_policy(struct task_struct *p)
 {
