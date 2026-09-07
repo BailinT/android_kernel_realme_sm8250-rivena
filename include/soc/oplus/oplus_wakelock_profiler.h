@@ -138,6 +138,10 @@ static inline void alarmtimer_wakeup_count(struct alarm *alarm) {}
 static inline void wakeup_get_start_time(void) {}
 static inline void wakeup_get_end_hold_time(void) {}
 
+/* BailinT: 树 #else 桩漏了 get_cached_platform_id stub（oplus_nwpower/irq-gic-v3 在 POWERINFO_STANDBY 下调用）。
+ * 本树为 kona(sm8250) 平台，恒返回 KONA=1：==LAGOON 分支恒 false、==KONA 分支恒 true，语义正确 */
+static inline int get_cached_platform_id(void) { return KONA; }
+
 #endif
 
 #endif  /* __OPLUS_WAKELOCK_PROFILER_H__ */
