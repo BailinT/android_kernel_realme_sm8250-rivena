@@ -562,6 +562,8 @@ void call_rcu_tasks_trace(struct rcu_head *rhp, rcu_callback_t func)
 }
 EXPORT_SYMBOL_GPL(call_rcu_tasks_trace);
 
+#ifdef CONFIG_TASKS_TRACE_RCU
+/* BailinT: 本树 task_struct 无 trc_* 成员（无 backport），trace 变体整体关闭，此函数随 CONFIG_TASKS_TRACE_RCU 才编译 */
 /* If we are the last reader, wake up the grace-period kthread. */
 void rcu_read_unlock_trace_special(struct task_struct *t)
 {
@@ -570,3 +572,4 @@ void rcu_read_unlock_trace_special(struct task_struct *t)
 		wake_up(&trc_wait);
 }
 EXPORT_SYMBOL_GPL(rcu_read_unlock_trace_special);
+#endif /* CONFIG_TASKS_TRACE_RCU */
