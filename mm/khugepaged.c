@@ -1059,7 +1059,6 @@ static void collapse_huge_page(struct mm_struct *mm,
 	_pmd = pmdp_collapse_flush(vma, address, pmd);
 	spin_unlock(pmd_ptl);
 	mmu_notifier_invalidate_range_end(&range);
-	tlb_remove_table_sync_one();
 
 	spin_lock(pte_ptl);
 	isolated = __collapse_huge_page_isolate(vma, address, pte);
@@ -1327,7 +1326,7 @@ static void retract_page_tables(struct address_space *mapping, pgoff_t pgoff)
 				_pmd = pmdp_collapse_flush(vma, addr, pmd);
 				spin_unlock(ptl);
 				mm_dec_nr_ptes(mm);
-				tlb_remove_table_sync_one();
+				/* BailinT: 5.10 残片调用（khugepaged collapse 4.19 主线无此调用），删除 */
 				pte_free(mm, pmd_pgtable(_pmd));
 				mmu_notifier_invalidate_range_end(&range);
 			}
