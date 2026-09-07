@@ -17,6 +17,19 @@ struct mmu_notifier_ops;
 
 #ifdef CONFIG_MMU_NOTIFIER
 
+/* BailinT: 本树 range_init 带 5.x 签名（enum mmu_notifier_event）但枚举定义缺失
+ * （上游混血），补主线 5.4 版枚举；同段 __mmu_notifier_* 不消费 event，语义兼容 */
+enum mmu_notifier_event {
+	MMU_NOTIFY_UNMAP = 0,
+	MMU_NOTIFY_CLEAR,
+	MMU_NOTIFY_PROTECTION_VMA,
+	MMU_NOTIFY_PROTECTION_PAGE,
+	MMU_NOTIFY_SOFT_DIRTY,
+	MMU_NOTIFY_RELEASE,
+	MMU_NOTIFY_MIGRATE,
+	MMU_NOTIFY_UPDATE,
+};
+
 /*
  * The mmu notifier_mm structure is allocated and installed in
  * mm->mmu_notifier_mm inside the mm_take_all_locks() protected
