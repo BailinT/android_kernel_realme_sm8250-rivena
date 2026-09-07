@@ -32,8 +32,9 @@ extern void cpu_cache_off(void);
 extern void cpu_do_idle(void);
 extern void cpu_do_switch_mm(unsigned long pgd_phys, struct mm_struct *mm);
 extern void cpu_reset(unsigned long addr) __attribute__((noreturn));
-void cpu_soft_restart(phys_addr_t cpu_reset,
-		unsigned long addr) __attribute__((noreturn));
+/* BailinT: cpu_soft_restart 以 arch/arm64/kernel/cpu-reset.h 的 4 参 static inline 为准，
+ * 此处 4.19 二参旧 extern 声明与 5.x 调用方冲突（static follows non-static），删除 */
+
 extern void cpu_do_suspend(struct cpu_suspend_ctx *ptr);
 extern u64 cpu_do_resume(phys_addr_t ptr, u64 idmap_ttbr);
 
