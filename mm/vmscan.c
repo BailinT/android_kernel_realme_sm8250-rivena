@@ -7046,7 +7046,7 @@ int kswapd_run(int nid)
 	if (pgdat->kswapd[0])
 		return 0;
 
-	nr_threads = kswapd_threads;
+	nr_threads = kswapd_threads_current;
 	for (hid = 0; hid < nr_threads; hid++) {
 		pgdat->kswapd[hid] = kthread_run(kswapd, pgdat, "kswapd%d:%d",
 							nid, hid);
