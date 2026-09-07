@@ -60,6 +60,13 @@
 #include <linux/hans.h>
 #endif /*OPLUS_FEATURE_HANS_FREEZE*/
 
+// BailinT: GT大师探索版混血树 CONFIG_CFS_BANDWIDTH 段引用 hans_report 但 staging/android/hans.o 未编出
+// （原厂 build 用私有充电仓库配套的 HansMakefile），weak 空实现与 deamon 未握手同效
+int __attribute__((weak)) hans_report(enum message_type type, int caller_pid, int caller_uid, int target_pid, int target_uid, const char *rpc_name, int code)
+{
+	return HANS_NOERROR;
+}
+
 #ifdef OPLUS_BUG_STABILITY
 #include <soc/oplus/system/oplus_process.h>
 #endif
